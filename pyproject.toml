@@ -18,3 +18,15 @@ testpaths = ["tests"]
 
 [project.scripts]
 pp = "pp.cli:app"
+
+[tool.flake8]
+inline-quotes = "double"
+
+[tool.mypy]
+plugins = "returns.contrib.mypy.returns_plugin"
+strict = true
+
+[tool.autoflake]
+in-place = true
+recursive = true
+remove-all-unused-imports = true

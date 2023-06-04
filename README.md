@@ -20,8 +20,14 @@ Install dev requirements: `pip install -r requirements/dev.txt`.
 
 Install package in editable way: `pip install -e .`.
 
-Format code: `black pp`.
+Format code: `black .`.
 
-Lint code: `mypy -p pp`.
+Sort imports: `isort .`.
+
+Remove unused imports: `autoflake .`.
+
+Lint code: `flake8`.
+
+Check types: `mypy .`.
 
 Test code: `pytest`.
