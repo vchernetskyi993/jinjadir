@@ -11,7 +11,7 @@ dynamic = ["dependencies"]
 packages = { find = { include = ["pp", "pp.*"] } }
 
 [tool.setuptools.dynamic]
-dependencies = { file = ["requirements.txt"] }
+dependencies = { file = ["requirements/base.txt"] }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -21,6 +21,13 @@ pp = "pp.cli:app"
 
 [tool.flake8]
 inline-quotes = "double"
+max-line-length = 88
+ignore = ["WPS306"]
+per-file-ignores = [
+    "tests/test_*.py:D100,D101,D102,D103,S101",
+    "pp/cli.py:WPS320,WPS234",
+]
+docstring_style = "numpy"
 
 [tool.mypy]
 plugins = "returns.contrib.mypy.returns_plugin"
