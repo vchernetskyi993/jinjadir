@@ -10,10 +10,16 @@ app = typer.Typer()
 cwd = Path(os.getcwd())
 
 
-@app.command()
+@app.command(help="Copy and process Jinja templates to a target directory.")
 def init(
-    templates_path: Annotated[Path, typer.Option()],
-    target_path: Annotated[Path, typer.Argument()] = cwd,
+    templates_path: Annotated[
+        Path,
+        typer.Option(help="Path to directory with Jinja templates."),
+    ],
+    target_path: Annotated[
+        Path,
+        typer.Argument(help="Path to unpack source templates."),
+    ] = cwd,
     arg: Annotated[
         Optional[List[str]],
         typer.Option(
@@ -25,18 +31,4 @@ def init(
         ),
     ] = None,
 ) -> None:
-    """
-    Initialize new project.
-
-    Parameters
-    ----------
-    target_path : Path
-        Path to a new project directory.
-
-    templates_path : Path
-        Path to a directory with project templates.
-
-    arg : List[str]
-        List of key value pairs that will be used as Jinja2 variables.
-    """
     pass

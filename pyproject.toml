@@ -25,7 +25,7 @@ max-line-length = 88
 ignore = ["WPS306"]
 per-file-ignores = [
     "tests/test_*.py:D100,D101,D102,D103,S101",
-    "pp/cli.py:WPS320,WPS234",
+    "pp/cli.py:WPS320,WPS234,D103",
 ]
 docstring_style = "numpy"
 
