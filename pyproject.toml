@@ -37,3 +37,6 @@ strict = true
 in-place = true
 recursive = true
 remove-all-unused-imports = true
+
+[tool.isort]
+profile = "black"
