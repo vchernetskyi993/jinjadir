@@ -7,10 +7,15 @@ Useful for scaffolding of projects with predefined structure.
 
 Create and activate virtual environment the way you like.
 
-Install scaffold: `pip install .`.
+Install jinjadir: `pip install .`.
 
 Initialize example Python CLI project: 
-`jinjadir --templates-path ~/<path to this repo>/templates/cli --arg project=my_app myapp/`.
+```shell
+jinjadir \
+    --templates-path ~/<path to this repo>/templates/cli \
+    --arg project=my_app \
+    myapp/
+```
 
 ## Development
 
