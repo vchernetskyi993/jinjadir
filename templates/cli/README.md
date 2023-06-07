@@ -1,4 +1,4 @@
-# Jinja Directory
+# {{ project }}
 
 CLI app created using jinjadir.
 
