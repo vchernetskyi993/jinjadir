@@ -1,3 +1,5 @@
+<!-- TODO: update readme -->
+
 # Python Scaffold
 
 Personal utility to initialize Python based projects.

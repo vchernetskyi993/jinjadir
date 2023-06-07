@@ -2,9 +2,10 @@
 
 import os
 from pathlib import Path
-from typing import Annotated, List, Optional
+from typing import Annotated, Optional
 
 import typer
+from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 app = typer.Typer()
 cwd = Path(os.getcwd())
@@ -21,7 +22,7 @@ def init(
         typer.Argument(help="Path to unpack source templates."),
     ] = cwd,
     arg: Annotated[
-        Optional[List[str]],
+        Optional[list[str]],
         typer.Option(
             help="""
                 Jinja2 variables in the form <key>=<value>.
@@ -31,4 +32,25 @@ def init(
         ),
     ] = None,
 ) -> None:
-    pass
+    os.makedirs(target_path, exist_ok=True)
+    env = Environment(
+        loader=FileSystemLoader(templates_path),
+        autoescape=True,
+        undefined=StrictUndefined,
+    )
+    for template_path in env.list_templates():
+        template = env.get_template(template_path)
+        target_file = target_path / template_path
+        os.makedirs(target_file.parent, exist_ok=True)
+        target_file.write_text(template.render(_arguments(arg)))
+
+
+def _arguments(args: Optional[list[str]]) -> dict[str, str]:
+    if not args:
+        return {}
+    return dict([_argument(arg) for arg in args])
+
+
+def _argument(pair: str) -> tuple[str, str]:
+    (name, value) = pair.split("=")
+    return (name, value)
