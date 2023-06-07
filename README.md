@@ -1,20 +1,17 @@
-<!-- TODO: update readme -->
+# Jinja Directory
 
-# Python Scaffold
-
-Personal utility to initialize Python based projects.
+Utility to unpack directory of [Jinja](https://jinja.palletsprojects.com/en) templates.
+Useful for scaffolding of projects with predefined structure.
 
 ## Usage
 
 Create and activate virtual environment the way you like.
 
-Install dependencies: `pip install -r requirements.txt`.
-
 Install scaffold: `pip install .`.
 
 Create empty directory for you future project wherever you like: `mkdir myapp && cd myapp`.
 
-Initialize Python project: `pp init`.
+Initialize example Python CLI project: `jinjadir --templates-path ~/<path to this repo>/templates/cli`.
 
 ## Development
 

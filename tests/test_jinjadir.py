@@ -3,7 +3,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from pp.cli import app
+from jinjadir.cli import app
 
 runner = CliRunner()
 

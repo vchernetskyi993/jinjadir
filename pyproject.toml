@@ -3,12 +3,12 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pp"
+name = "jinjadir"
 version = "0.1.0"
 dynamic = ["dependencies"]
 
 [tool.setuptools]
-packages = { find = { include = ["pp", "pp.*"] } }
+packages = { find = { include = ["jinjadir", "jinjadir.*"] } }
 
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements/base.txt"] }
@@ -17,7 +17,7 @@ dependencies = { file = ["requirements/base.txt"] }
 testpaths = ["tests"]
 
 [project.scripts]
-pp = "pp.cli:app"
+jinjadir = "jinjadir.cli:app"
 
 [tool.flake8]
 inline-quotes = "double"
@@ -25,7 +25,7 @@ max-line-length = 88
 ignore = ["WPS306"]
 per-file-ignores = [
     "tests/test_*.py:D100,D101,D102,D103,S101",
-    "pp/cli.py:WPS320,WPS234,D103",
+    "jinjadir/cli.py:WPS320,WPS234,D103",
 ]
 docstring_style = "numpy"
 

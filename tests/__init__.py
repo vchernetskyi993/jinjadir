@@ -1,1 +1,1 @@
-"""Tests for python project (pp) executable."""
+"""Tests for jinjadir executable."""
