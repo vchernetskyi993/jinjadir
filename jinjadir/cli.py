@@ -39,10 +39,11 @@ def init(
         undefined=StrictUndefined,
     )
     for template_path in env.list_templates():
-        template = env.get_template(template_path)
-        target_file = target_path / template_path
+        target_file = target_path / env.from_string(template_path).render(
+            _arguments(arg),
+        )
         os.makedirs(target_file.parent, exist_ok=True)
-        target_file.write_text(template.render(_arguments(arg)))
+        target_file.write_text(env.get_template(template_path).render(_arguments(arg)))
 
 
 def _arguments(args: Optional[list[str]]) -> dict[str, str]:

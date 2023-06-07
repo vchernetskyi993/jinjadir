@@ -88,3 +88,44 @@ def test_throw_on_unknown_placeholder(tmp_path: Path) -> None:
     # then
     assert init_result.exit_code == 1
     assert "'typer_version_arg'" in str(init_result.exception)
+
+
+def test_process_filename(tmp_path: Path) -> None:
+    # given
+    templates_path = tmp_path / "templates"
+    os.mkdir(templates_path)
+    typer_version_arg = "1.11.0"
+    dir_name_arg = "requirements"
+    env_arg = "dev"
+    requirements_template = "typer=={{ typer_version_arg }}"
+    inner_dir = "{{ dir_name }}"
+    inner_dir_path = templates_path / inner_dir
+    os.mkdir(inner_dir_path)
+    requirements_file = Path(inner_dir) / "requirements-{{ env }}.txt"
+    (templates_path / requirements_file).write_text(requirements_template)
+    project_path = tmp_path / "testapp"
+    os.mkdir(project_path)
+
+    # when
+    init_result = runner.invoke(
+        app,
+        [
+            "--templates-path",
+            str(templates_path),
+            "--arg",
+            "typer_version_arg={0}".format(typer_version_arg),
+            "--arg",
+            "dir_name={0}".format(dir_name_arg),
+            "--arg",
+            "env={0}".format(env_arg),
+            str(project_path),
+        ],
+    )
+
+    # then
+    assert init_result.exit_code == 0
+    output_requirements = "typer=={0}".format(typer_version_arg)
+    output_file = "requirements-{0}.txt".format(env_arg)
+    assert (
+        project_path / dir_name_arg / output_file
+    ).read_text() == output_requirements
