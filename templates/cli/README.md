@@ -1,20 +1,14 @@
+# Jinja Directory
 
-<!-- TODO: update readme -->
-# Python Scaffold
-
-Personal utility to initialize Python based projects.
+CLI app created using jinjadir.
 
 ## Usage
 
 Create and activate virtual environment the way you like.
 
-Install dependencies: `pip install -r requirements.txt`.
+Install {{ project }}: `pip install .`.
 
-Install scaffold: `pip install .`.
-
-Create empty directory for you future project wherever you like: `mkdir myapp && cd myapp`.
-
-Initialize Python project: `pp init`.
+Use CLI: `{{ project }} --help`.
 
 ## Development
 
@@ -22,8 +16,14 @@ Install dev requirements: `pip install -r requirements/dev.txt`.
 
 Install package in editable way: `pip install -e .`.
 
-Format code: `black`.
+Format code: `black .`.
 
-Lint code: `mypy`.
+Sort imports: `isort .`.
+
+Remove unused imports: `autoflake .`.
+
+Lint code: `flake8`.
+
+Check types: `mypy .`.
 
 Test code: `pytest`.

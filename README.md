@@ -9,9 +9,8 @@ Create and activate virtual environment the way you like.
 
 Install scaffold: `pip install .`.
 
-Create empty directory for you future project wherever you like: `mkdir myapp && cd myapp`.
-
-Initialize example Python CLI project: `jinjadir --templates-path ~/<path to this repo>/templates/cli`.
+Initialize example Python CLI project: 
+`jinjadir --templates-path ~/<path to this repo>/templates/cli --arg project=my_app myapp/`.
 
 ## Development
 

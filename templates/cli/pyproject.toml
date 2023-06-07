@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ project }}"
+version = "0.1.0"
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+packages = { find = { include = ["{{ project }}", "{{ project }}.*"] } }
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements/base.txt"] }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[project.scripts]
+{{ project }} = "{{ project }}.cli:app"
+
+[tool.flake8]
+inline-quotes = "double"
+max-line-length = 88
+ignore = ["WPS306"]
+per-file-ignores = [
+    "tests/test_*.py:D100,D101,D102,D103,S101",
+    "{{ project }}/cli.py:WPS320,WPS234,D103",
+]
+docstring_style = "numpy"
+
+[tool.mypy]
+plugins = "returns.contrib.mypy.returns_plugin"
+strict = true
+
+[tool.autoflake]
+in-place = true
+recursive = true
+remove-all-unused-imports = true
+
+[tool.isort]
+profile = "black"

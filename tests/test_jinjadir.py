@@ -5,7 +5,7 @@ from typer.testing import CliRunner
 
 from jinjadir.cli import app
 
-runner = CliRunner()
+runner = CliRunner(mix_stderr=False)
 
 
 def test_initialize_cli_project(tmp_path: Path) -> None:
@@ -87,7 +87,7 @@ def test_throw_on_unknown_placeholder(tmp_path: Path) -> None:
 
     # then
     assert init_result.exit_code == 1
-    assert "'typer_version_arg'" in str(init_result.exception)
+    assert "'typer_version_arg'" in init_result.stderr
 
 
 def test_process_filename(tmp_path: Path) -> None:

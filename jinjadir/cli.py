@@ -1,11 +1,15 @@
 """CLI of the application. Main entrypoint."""
 
 import os
+import re
+import sys
 from pathlib import Path
 from typing import Annotated, Optional
 
 import typer
-from jinja2 import Environment, FileSystemLoader, StrictUndefined
+from jinja2 import Environment, FileSystemLoader, StrictUndefined, UndefinedError
+
+_UNDEFINED_VAR_PATTERN = re.compile(r"'([\w]+)' is undefined")
 
 app = typer.Typer()
 cwd = Path(os.getcwd())
@@ -37,13 +41,31 @@ def init(
         loader=FileSystemLoader(templates_path),
         autoescape=True,
         undefined=StrictUndefined,
+        keep_trailing_newline=True,
     )
+    missing_variables = set()
     for template_path in env.list_templates():
-        target_file = target_path / env.from_string(template_path).render(
-            _arguments(arg),
+        try:
+            target_file = target_path / env.from_string(template_path).render(
+                _arguments(arg),
+            )
+            os.makedirs(target_file.parent, exist_ok=True)
+            target_file.write_text(
+                env.get_template(template_path).render(_arguments(arg)),
+            )
+        except UndefinedError as error:
+            if error.message:
+                missing = _UNDEFINED_VAR_PATTERN.findall(error.message)[0]
+                missing_variables.add(missing)
+    if missing_variables:
+        print(
+            "{0} are required inside {1}.".format(
+                ",".join("'{0}'".format(missing) for missing in missing_variables),
+                templates_path,
+            ),
+            file=sys.stderr,
         )
-        os.makedirs(target_file.parent, exist_ok=True)
-        target_file.write_text(env.get_template(template_path).render(_arguments(arg)))
+        raise typer.Exit(code=1)
 
 
 def _arguments(args: Optional[list[str]]) -> dict[str, str]:

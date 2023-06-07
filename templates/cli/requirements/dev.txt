@@ -1,0 +1,6 @@
+-r test.txt
+autoflake
+black
+Flake8-pyproject
+mypy
+wemake-python-styleguide
