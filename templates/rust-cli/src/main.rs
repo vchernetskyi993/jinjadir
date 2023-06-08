@@ -4,8 +4,7 @@ use clap::Parser;
 #[tokio::main]
 async fn main() -> Result<()> {
     let cli = Cli::parse();
-    println!("Hello, {}!", cli.name
-);
+    println!("Hello, {}!", cli.name);
     Ok(())
 }
 
