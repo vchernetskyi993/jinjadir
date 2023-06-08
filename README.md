@@ -12,7 +12,7 @@ Install jinjadir: `pip install .`.
 Initialize example Python CLI project: 
 ```shell
 jinjadir \
-    --templates-path ~/<path to this repo>/templates/cli \
+    --templates-path <path to this repo>/templates/cli \
     --arg project=my_app \
     myapp/
 ```
