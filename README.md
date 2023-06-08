@@ -29,8 +29,10 @@ Sort imports: `isort .`.
 
 Remove unused imports: `autoflake .`.
 
+<!-- FIXME: fix test linter errors -->
 Lint code: `flake8`.
 
+<!-- FIXME: exclude templates folder -->
 Check types: `mypy .`.
 
 Test code: `pytest`.

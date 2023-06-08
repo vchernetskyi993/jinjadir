@@ -87,6 +87,7 @@ def test_throw_on_unknown_placeholder(tmp_path: Path) -> None:
 
     # then
     assert init_result.exit_code == 1
+    # FIXME: test fails
     assert "'typer_version_arg'" in init_result.stderr
 
 

@@ -20,6 +20,7 @@ testpaths = ["tests"]
 jinjadir = "jinjadir.cli:app"
 
 [tool.flake8]
+exclude = ["templates", "build"]
 inline-quotes = "double"
 max-line-length = 88
 ignore = ["WPS306"]
@@ -36,6 +37,11 @@ strict = true
 in-place = true
 recursive = true
 remove-all-unused-imports = true
+exclude = "templates"
 
 [tool.isort]
 profile = "black"
+skip = "templates"
+
+[tool.black]
+exclude = "templates"
