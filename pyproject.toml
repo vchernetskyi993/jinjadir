@@ -56,5 +56,3 @@ skip = "templates"
 
 [tool.black]
 exclude = "templates"
-
-# test change

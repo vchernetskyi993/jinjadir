@@ -30,7 +30,7 @@ jobs:
           mypy .
       - name: Lint
         run: |
-          flake8 --statistics
+          flake8
       - name: Install package
         run: |
           pip install .

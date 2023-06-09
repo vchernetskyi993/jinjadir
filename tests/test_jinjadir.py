@@ -1,6 +1,7 @@
 import os
 from itertools import chain
 from pathlib import Path
+from typing import Optional
 
 import pytest
 from click.testing import Result
@@ -9,7 +10,7 @@ from typer.testing import CliRunner
 from jinjadir.cli import app
 
 _ARG_PARAM = "--arg"
-_TEMPLATES_PARAM = "--templates-param"
+_TEMPLATES_PARAM = "--templates-path"
 
 runner = CliRunner(mix_stderr=False)
 
@@ -103,6 +104,7 @@ def test_process_filename(tmp_path: Path) -> None:
         "typer_version_arg={0}".format(typer_version_arg),
         "dir_name={0}".format(dir_name_arg),
         "env={0}".format(env_arg),
+        project_path=project_path,
     )
 
     # then
@@ -150,13 +152,13 @@ def _project_path(tmp_path: Path) -> Path:
     return tmp_path / "my_app"
 
 
-def _invoke(tmp_path: Path, *args: str) -> Result:
+def _invoke(tmp_path: Path, *args: str, project_path: Optional[Path] = None) -> Result:
     return runner.invoke(
         app,
         [
             _TEMPLATES_PARAM,
             str(_templates_path(tmp_path)),
             *chain(*[[_ARG_PARAM, arg] for arg in args]),
-            str(_project_path(tmp_path)),
+            str(project_path if project_path else _project_path(tmp_path)),
         ],
     )
