@@ -1,2 +1,2 @@
-returns==0.20.0
+returns
 typer[all]
