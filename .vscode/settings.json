@@ -4,6 +4,8 @@
     "python.linting.mypyEnabled": true,
     "python.linting.enabled": true,
     "cSpell.words": [
-        "jinjadir"
-    ]
+        "jinjadir",
+        "pointfree"
+    ],
+    "workbench.colorTheme": "Spacegray Python"
 }

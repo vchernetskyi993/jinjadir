@@ -3,6 +3,7 @@
     "ms-python.flake8",
     "ms-toolsai.jupyter",
     "ms-python.black-formatter",
-    "ms-python.isort"
+    "ms-python.isort",
+    "RicardoBenhossi.spacegray-python"
   ]
 }
