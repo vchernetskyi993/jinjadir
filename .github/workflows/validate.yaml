@@ -30,7 +30,10 @@ jobs:
           mypy .
       - name: Lint
         run: |
-          flake8
+          flake8 --statistics
+      - name: Install package
+        run: |
+          pip install .
       - name: Test
         run: |
           pytest
