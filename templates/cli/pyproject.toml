@@ -39,7 +39,8 @@ per-file-ignores = [
 docstring_style = "numpy"
 
 [tool.mypy]
-plugins = "returns.contrib.mypy.returns_plugin"
+plugins = ["returns.contrib.mypy.returns_plugin"]
+exclude = ["build"]
 strict = true
 
 [tool.autoflake]

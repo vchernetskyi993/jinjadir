@@ -31,7 +31,6 @@ Remove unused imports: `autoflake .`.
 
 Lint code: `flake8`.
 
-<!-- FIXME: exclude templates folder -->
 Check types: `mypy .`.
 
 Test code: `pytest`.
