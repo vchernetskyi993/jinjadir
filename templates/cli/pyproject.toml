@@ -22,10 +22,19 @@ testpaths = ["tests"]
 [tool.flake8]
 inline-quotes = "double"
 max-line-length = 88
-ignore = ["WPS306"]
+ignore = [
+    # class without a base class - okay for ...(Object):
+    "WPS306",
+]
 per-file-ignores = [
-    "tests/test_*.py:D100,D101,D102,D103,S101",
-    "{{ project }}/cli.py:WPS320,WPS234,D103",
+    # D100,D101,D102,D103 documentation - no need for tests
+    # S101 assert - used by pytest
+    # WPS210 many local vars - okay(?) for tests
+    "tests/test_*.py:D100,D101,D102,D103,S101,WPS210",
+    # WPS320 multi-line annotation - okay for Typer params
+    # WPS234 complex annotation - okay for Typer params
+    # D103 function docs - Typer annotations serve as such
+    "jinjadir/cli.py:WPS320,WPS234,D103",
 ]
 docstring_style = "numpy"
 

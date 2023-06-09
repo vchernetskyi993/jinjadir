@@ -5,6 +5,8 @@ from typer.testing import CliRunner
 
 from jinjadir.cli import app
 
+_ARG_PARAM = "--arg"
+
 runner = CliRunner(mix_stderr=False)
 
 
@@ -40,11 +42,11 @@ def test_initialize_cli_project(tmp_path: Path) -> None:
         [
             "--templates-path",
             str(templates_path),
-            "--arg",
+            _ARG_PARAM,
             "name_arg={0}".format(name_arg),
-            "--arg",
+            _ARG_PARAM,
             "value_arg={0}".format(value_arg),
-            "--arg",
+            _ARG_PARAM,
             "typer_version_arg={0}".format(typer_version_arg),
             str(project_path),
         ],
@@ -112,11 +114,11 @@ def test_process_filename(tmp_path: Path) -> None:
         [
             "--templates-path",
             str(templates_path),
-            "--arg",
+            _ARG_PARAM,
             "typer_version_arg={0}".format(typer_version_arg),
-            "--arg",
+            _ARG_PARAM,
             "dir_name={0}".format(dir_name_arg),
-            "--arg",
+            _ARG_PARAM,
             "env={0}".format(env_arg),
             str(project_path),
         ],
