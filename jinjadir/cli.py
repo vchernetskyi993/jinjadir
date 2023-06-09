@@ -2,18 +2,19 @@
 
 import os
 import re
-import sys
 from pathlib import Path
-from typing import Annotated, List, Optional, Set, Tuple
+from typing import Annotated, List, Optional, Tuple
 
 import typer
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, UndefinedError
 from returns.result import Failure, Result, Success
+from rich.console import Console
 
 _UNDEFINED_VAR_PATTERN = re.compile(r"'([\w]+)' is undefined")
 
 app = typer.Typer()
 cwd = Path(os.getcwd())
+stderr = Console(stderr=True)
 
 
 @app.command(help="Copy and process Jinja templates to a target directory.")
@@ -40,7 +41,7 @@ def init(
     os.makedirs(target_path, exist_ok=True)
     match TemplateProcessor(templates_path, arg if arg else [], target_path).process():
         case Failure(error):
-            print(error, file=sys.stderr)  # noqa: WPS421
+            stderr.print(error)
             raise typer.Exit(code=1)
 
 
@@ -73,7 +74,6 @@ class TemplateProcessor:
         )
         self.args = args
         self.target_path = target_path
-        self.missing_variables: Set[str] = set()
 
     def process(self) -> Result[None, str]:
         """Process templates.
@@ -83,18 +83,19 @@ class TemplateProcessor:
         Result[None, str]
             None or error as string.
         """
+        missing_variables = set()
         for template_path in self.env.list_templates():
             try:
                 self._process_single(template_path)
             except UndefinedError as error:
                 if error.message:
                     missing = _UNDEFINED_VAR_PATTERN.findall(error.message)[0]
-                    self.missing_variables.add(missing)
-        if self.missing_variables:
+                    missing_variables.add(missing)
+        if missing_variables:
             return Failure(
                 "{0} are required inside {1}.".format(
                     ",".join(
-                        "'{0}'".format(missing) for missing in self.missing_variables
+                        "'{0}'".format(missing) for missing in missing_variables
                     ),
                     self.templates_path,
                 ),
