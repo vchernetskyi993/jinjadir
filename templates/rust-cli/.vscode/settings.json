@@ -1,4 +1,5 @@
 {
   "rust-analyzer.check.command": "clippy",
-  "editor.inlayHints.enabled": "off"
+  "editor.inlayHints.enabled": "off",
+  "workbench.colorTheme": "Rusty One Dark"
 }
