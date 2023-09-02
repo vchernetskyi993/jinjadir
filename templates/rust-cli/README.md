@@ -2,6 +2,8 @@
 
 CLI app created using jinjadir.
 
+Update dependencies using `cargo upgrade --incompatible`.
+
 ## Usage
 
 Rust is required.
